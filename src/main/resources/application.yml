@@ -2,6 +2,33 @@ spring:
   profiles:
     active: dev  # 기본적으로는 application-dev.yml 이 로딩된다는 의미
     include: secret # active 되는 설정파일 (application-dev.yml) 다음에 application-secret.yml 이 로딩된다는 의미
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: user1@gmail.com
+    password: NEED_TO_INPUT_ON_SECRET
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            clientId:
+            scope: profile_nickname
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8010/login/oauth2/code/kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
   jpa:
     properties:
       hibernate:
